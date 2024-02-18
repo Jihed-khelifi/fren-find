@@ -1,12 +1,11 @@
-import LeaderBoard from "./pages/LeaderBoard"
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
-
     <div className='relative bg-[url("./assets/images/endscr.png")] bg-cover w-dvw h-dvh'>
-      <LeaderBoard />
+      <HomePage />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
