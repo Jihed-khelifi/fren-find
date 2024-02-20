@@ -2,16 +2,15 @@ import { FC, useEffect, useState } from "react";
 import CupIcon from "../assets/images/cup.png";
 import Badge from "../assets/images/badge.png";
 import { Dispatch, SetStateAction } from "react";
+import { Link } from "react-router-dom";
+import LevelHeader from "../components/LevelHeader";
 
 interface LeaderBoardProps {
   // users: any;
   onHide: Dispatch<SetStateAction<boolean>>;
 }
 
-const LeaderBoard: FC<LeaderBoardProps> = ({
-  // users,
-  onHide,
-}) => {
+const LeaderBoard: FC = () => {
   const [users, setUsers] = useState([]);
 
   // useEffect(() => {
@@ -28,7 +27,7 @@ const LeaderBoard: FC<LeaderBoardProps> = ({
 
   return (
     <div className=' transition-all absolute grid place-items-center bg-[url("./assets/images/endscr.png")] z-50 max-h-7xl h-full top-0  w-full max-w-8xl '>
-      <div className=" transition-all relative max-h-7xl bg-white/70 max-w-7xl w-full h-4/5  rounded-xl py-8 px-24">
+      <div className="transition-all relative max-h-7xl bg-white/70 max-w-7xl w-full h-4/5  rounded-xl py-8 px-24">
         <div>
           <p className="text-center text-4xl font-['Lato'] text font-[900] uppercase tracking-wide text-teal-700/90">
             leader board
@@ -101,12 +100,12 @@ const LeaderBoard: FC<LeaderBoardProps> = ({
         </div>
 
         <div className="absolute bottom-4 right-1/2 translate-x-1/2">
-          <button
+          <Link
             className="bg-white rounded-xl py-1 px-16 hover:scale-[1.02] transition-all text-2xl shadow-inner uppercase font-bold "
-            onClick={() => onHide(false)}
+            to={"/"}
           >
             back
-          </button>
+          </Link>
         </div>
       </div>
     </div>
