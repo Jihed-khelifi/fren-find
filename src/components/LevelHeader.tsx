@@ -12,7 +12,7 @@ import { GameState } from "../context/gameContext";
 const LevelHeader: FC = () => {
   const [time, setTime] = useState(0);
   // const [state, dispatch] = useContext(GameContext);
-  const [state, dispatch] = useContext(GameContext);
+  const { state, dispatch } = useContext(GameContext);
   const handlePauseGame = () => {
     console.log("pause game");
   };
@@ -31,7 +31,6 @@ const LevelHeader: FC = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
 
   return (
     <div className="bg-white/70 w-dvw px-10 py-2  absolute top-0">

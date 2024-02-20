@@ -2,6 +2,7 @@ import { ReactNode, createContext, useMemo, useReducer } from "react";
 
 export enum GameActions {
   "TOGGLE_LEADERBOARD" = "TOGGLE_LEADERBOARD",
+  "INIT_GAME" = "INIT_GAME",
   "START_GAME" = "START_GAME",
   "PAUSE_GAME" = "PAUSE_GAME",
   "RESUME_GAME" = "RESUME_GAME",
@@ -16,6 +17,14 @@ export enum GameActions {
 
 type SetToggleLeaderboard = {
   type: typeof GameActions.TOGGLE_LEADERBOARD;
+};
+
+type ToggleMusic = {
+  type: typeof GameActions.TOGGLE_MUSIC;
+};
+
+type InitGame = {
+  type: typeof GameActions.INIT_GAME;
 };
 
 type StartGame = {
@@ -58,6 +67,8 @@ type SetTimePlayed = {
 };
 
 type GameActionsType =
+  | ToggleMusic
+  | InitGame
   | SetToggleLeaderboard
   | StartGame
   | PauseGame
@@ -70,6 +81,7 @@ type GameActionsType =
   | SetTimePlayed;
 
 export type GameState = {
+  isGameInitialized?: boolean;
   isLeaderboardVisible: boolean;
   level: number;
   score: number;
@@ -83,6 +95,7 @@ export type GameState = {
 };
 
 const initialState: GameState = {
+  isGameInitialized: false,
   isLeaderboardVisible: false,
   level: 1,
   score: 0,
@@ -95,8 +108,19 @@ const initialState: GameState = {
   isMusicOn: true,
 };
 
+type GameContextType = {
+  state: GameState;
+  dispatch: React.Dispatch<GameActionsType>;
+};
+export const GameContext = createContext<GameContextType>({
+  state: initialState,
+  dispatch: () => null,
+});
+
 export const gameReducer = (state: GameState, action: any) => {
   switch (action.type) {
+    case GameActions.INIT_GAME:
+      return { ...state, isGameInitialized: true };
     case GameActions.TOGGLE_LEADERBOARD:
       return { ...state, isLeaderboardVisible: !state.isLeaderboardVisible };
     case GameActions.START_GAME:
@@ -124,16 +148,12 @@ export const gameReducer = (state: GameState, action: any) => {
   }
 };
 
-export const GameContext = createContext<
-  [GameState, React.Dispatch<GameActionsType>]
->([initialState, () => {}]);
-
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
-  const value: any = useMemo(() => {
+  const value: GameContextType = useMemo(() => {
     return { state, dispatch };
   }, [state, dispatch]);
 
-  return <GameContext.Provider value={[state, dispatch]}>{children}</GameContext.Provider>;
+  return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 };
