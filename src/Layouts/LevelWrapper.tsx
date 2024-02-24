@@ -20,13 +20,21 @@ const LevelWrapper = () => {
   }
 
   const handleAttachEventListener = (e: MouseEventHandler<any>) => {
-    const eventListener = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        navigate("/");
-      }
-    };
-    window.addEventListener("keydown", eventListener);
-    return () => window.removeEventListener("keydown", eventListener);
+
+    // console.log(e.clientX, e.clientY)
+
+    // for (let i = 0; i < levelData.questions.length; i++) {
+    //   const hotspot = levelData.questions[i].answer.answerPositions[i];
+    //   if (
+    //     e.clientX >= hotspot.x &&
+    //     e.clientX <= hotspot.x + hotspot.width &&
+    //     e.clientY >= hotspot.y &&
+    //     e.clientY <= hotspot.y + hotspot.height
+    //   ) {
+    //     console.log(hotspot);
+    //   }
+    // }
+
   };
 
   // TODO: this should come from the server
@@ -34,7 +42,7 @@ const LevelWrapper = () => {
 
   return (
     <div
-      className="relative bg-cover bg-no-repeat bg-top w-dvw h-dvh"
+      className="relative bg-cover bg-no-repeat bg-top w-dvw h-dvh "
       style={{
         backgroundImage: `url(${levelBackgroundImage})`,
       }}

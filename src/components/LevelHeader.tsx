@@ -8,6 +8,7 @@ import { CiStop1 } from "react-icons/ci";
 import { FaMusic } from "react-icons/fa6";
 import moment from "moment";
 import { GameState } from "../context/gameContext";
+import { Link } from "react-router-dom";
 
 const LevelHeader: FC = () => {
   const [time, setTime] = useState(0);
@@ -33,7 +34,7 @@ const LevelHeader: FC = () => {
   }, []);
 
   return (
-    <div className="bg-white/70 w-dvw px-10 py-2  absolute top-0">
+    <div className="bg-white/70 w-dvw px-10 py-2  absolute top-0 ">
       <div className="flex justify-between items-center">
         <div className="flex gap-5 items-center">
           <div className="flex gap-4 items-center">
@@ -70,6 +71,12 @@ const LevelHeader: FC = () => {
             <button className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm">
               <FaMusic />
             </button>
+            <Link
+              to="/"
+              className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm text-sm"
+            >
+              Exit
+            </Link>
           </div>
         </div>
       </div>

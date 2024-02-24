@@ -3,7 +3,6 @@ import titleq from "../assets/images/titleq.png";
 import oscoret from "../assets/images/oscoret.png";
 import na from "../assets/images/na.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { FC } from "react";
 import { useContext } from "react";
 import { GameContext } from "../context/gameContext";
@@ -11,7 +10,7 @@ import { GameActions } from "../context/gameContext";
 
 const HomePage: FC = () => {
   const navigate = useNavigate();
-  const [_, dispatch] = useContext(GameContext);
+  const { state, dispatch } = useContext(GameContext);
 
   const handleStartGame = () => {
     dispatch({ type: GameActions.START_GAME });

@@ -23,16 +23,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           {!state.isGameInitialized && (
-            <Route path="*" element={<LoadingAssets />} />
-          )}
-          {state.isGameInitialized && (
-            <Route path="/" element={<LayoutOutlet />}>
-              <Route path="/" element={<HomePage />} />
+            <Route path="" element={<LayoutOutlet />}>
+              <Route path="/" index element={<HomePage />} />
               <Route path="leaderboard" element={<LeaderBoard />} />
               <Route path="level/:level" element={<LevelWrapper />}>
-                <Route path="/" element={<LevelOne />} />
-                <Route path="2" element={<LevelTwo />} />
-                <Route path="3" element={<LevelThree />} />
+                <Route path="level/1" element={<LevelOne />} />
+                <Route path="level/2" element={<LevelTwo />} />
+                <Route path="level/3" element={<LevelThree />} />
               </Route>
             </Route>
           )}
