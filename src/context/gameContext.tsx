@@ -1,9 +1,17 @@
-import { ReactNode, createContext, useMemo, useReducer } from "react";
+import {
+  ReactNode,
+  createContext,
+  useMemo,
+  useReducer,
+  useEffect,
+} from "react";
+import BachgroundSound from "../assets/sounds/backgroundSound.mp3";
 
 export enum GameActions {
   "TOGGLE_LEADERBOARD" = "TOGGLE_LEADERBOARD",
   "INIT_GAME" = "INIT_GAME",
   "START_GAME" = "START_GAME",
+  "EXIT_GAME" = "EXIT_GAME",
   "PAUSE_GAME" = "PAUSE_GAME",
   "RESUME_GAME" = "RESUME_GAME",
   "FINISH_GAME" = "FINISH_GAME",
@@ -13,10 +21,24 @@ export enum GameActions {
   "SET_SCORE" = "SET_SCORE",
   "SET_TIMEPLAYED" = "SET_TIMEPLAYED",
   "TOGGLE_MUSIC" = "TOGGLE_MUSIC",
+  "TOGGLE_WRONG" = "TOGGLE_WRONG",
+  "TOGGLE_CORRECT" = "TOGGLE_CORRECT",
 }
 
 type SetToggleLeaderboard = {
   type: typeof GameActions.TOGGLE_LEADERBOARD;
+};
+
+type ExitGame = {
+  type: typeof GameActions.EXIT_GAME;
+};
+
+type SetToggleWrong = {
+  type: typeof GameActions.TOGGLE_WRONG;
+};
+
+type SetToggleCorrect = {
+  type: typeof GameActions.TOGGLE_CORRECT;
 };
 
 type ToggleMusic = {
@@ -78,7 +100,10 @@ type GameActionsType =
   | LoseGame
   | SetLevel
   | SetScore
-  | SetTimePlayed;
+  | SetTimePlayed
+  | SetToggleWrong
+  | ExitGame
+  | SetToggleCorrect;
 
 export type GameState = {
   isGameInitialized?: boolean;
@@ -92,6 +117,9 @@ export type GameState = {
   isGameWon: boolean;
   isGameLost: boolean;
   isMusicOn: boolean;
+  isWrong: boolean;
+  isCorrect: boolean;
+  dispatch: React.Dispatch<GameActionsType>;
 };
 
 const initialState: GameState = {
@@ -105,7 +133,10 @@ const initialState: GameState = {
   isGameFinished: false,
   isGameWon: false,
   isGameLost: false,
-  isMusicOn: true,
+  isMusicOn: false,
+  isWrong: false,
+  isCorrect: false,
+  dispatch: () => null,
 };
 
 type GameContextType = {
@@ -125,6 +156,8 @@ export const gameReducer = (state: GameState, action: any) => {
       return { ...state, isLeaderboardVisible: !state.isLeaderboardVisible };
     case GameActions.START_GAME:
       return { ...state, isGameStarted: true };
+    case GameActions.EXIT_GAME:
+      return { ...state, isGameStarted: false };
     case GameActions.PAUSE_GAME:
       return { ...state, isGamePaused: true };
     case GameActions.RESUME_GAME:
@@ -143,6 +176,10 @@ export const gameReducer = (state: GameState, action: any) => {
       return { ...state, timeplayed: action.payload };
     case GameActions.TOGGLE_MUSIC:
       return { ...state, isMusicOn: !state.isMusicOn };
+    case GameActions.TOGGLE_WRONG:
+      return { ...state, isWrong: !state.isWrong };
+    case GameActions.TOGGLE_CORRECT:
+      return { ...state, isCorrect: !state.isCorrect };
     default:
       return state;
   }
@@ -150,6 +187,9 @@ export const gameReducer = (state: GameState, action: any) => {
 
 export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  useEffect(() => {
+  }, [state, dispatch]);
 
   const value: GameContextType = useMemo(() => {
     return { state, dispatch };

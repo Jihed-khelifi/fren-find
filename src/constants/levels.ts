@@ -15,22 +15,34 @@ export const levels: Array<Level> = [
             },
             {
                 text: "What is the capital of Spain?",
-                answer: "Madrid",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of Real Madrid"
             },
             {
                 text: "What is the capital of Italy?",
-                answer: "Rome",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of the Colosseum"
             },
             {
                 text: "What is the capital of Germany?",
-                answer: "Berlin",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of the Berlin Wall"
             },
             {
                 text: "What is the capital of England?",
-                answer: "London",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of the Big Ben"
             }
         ],
@@ -44,27 +56,42 @@ export const levels: Array<Level> = [
         questions: [
             {
                 text: "What is the capital of France?",
-                answer: "Paris",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of love"
             },
             {
                 text: "What is the capital of Spain?",
-                answer: "Madrid",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of Real Madrid"
             },
             {
                 text: "What is the capital of Italy?",
-                answer: "Rome",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of the Colosseum"
             },
             {
                 text: "What is the capital of Germany?",
-                answer: "Berlin",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of the Berlin Wall"
             },
             {
                 text: "What is the capital of England?",
-                answer: "London",
+                answer: {
+                    text: "Kevin Pixelmon",
+                    answerPositions: []
+                },
                 hint: "It's the city of the Big Ben"
             }
         ],

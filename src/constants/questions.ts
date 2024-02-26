@@ -16,10 +16,9 @@ export const questions: Question[] = [
     {
 
         text: "Who is the most notorious NFT influencer that was running scams?",
-        // answer: "Beanie",
         answer: {
             text: "Beanie",
-            answerPositions: []
+            answerPositions: [],
         },
         hint: "Owner of a Beanie Punk.",
 
@@ -27,7 +26,6 @@ export const questions: Question[] = [
     {
 
         text: "This founder/marketer went on CNBC live from Dubai on 2/10/2022 and created this meme",
-        // answer: "Gary Vee",
         answer: {
             text: "Gary Vee",
             answerPositions: []
@@ -38,7 +36,6 @@ export const questions: Question[] = [
     {
 
         text: "This project represents the world's most valuable generative art algorithm",
-        // answer: "Fidenza",
         answer: {
             text: "Fidenza",
             answerPositions: []
@@ -49,7 +46,6 @@ export const questions: Question[] = [
     {
 
         text: "This former UCLA film student founded two of the top NFT projects. Take shot from your show, bro.",
-        // answer: "Frankdagodz",
         answer: {
             text: "Frankdagodz",
             answerPositions: []
