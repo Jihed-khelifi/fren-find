@@ -11,9 +11,11 @@ import { GameActions } from "../context/gameContext";
 const HomePage: FC = () => {
   const navigate = useNavigate();
   const { state, dispatch } = useContext(GameContext);
+  const context = useContext(GameContext);
 
   const handleStartGame = () => {
     dispatch({ type: GameActions.START_GAME });
+    dispatch({ type: GameActions.TOGGLE_MUSIC });
     navigate("/level/1");
   };
 

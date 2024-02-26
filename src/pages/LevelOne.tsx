@@ -1,7 +1,9 @@
 const LevelOne = () => {
   return (
     <div>
-      <h1>Level One</h1>
+      <h1
+        className="text-7xl bg-black"
+      >Level One</h1>
     </div>
   );
 };

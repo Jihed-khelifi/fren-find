@@ -5,15 +5,25 @@ import { IoIosTimer } from "react-icons/io";
 import { useState, useEffect } from "react";
 import { MdMotionPhotosPause } from "react-icons/md";
 import { CiStop1 } from "react-icons/ci";
-import { FaMusic } from "react-icons/fa6";
+import { TbMusic } from "react-icons/tb";
+import { TbMusicOff } from "react-icons/tb";
+import { IoExitOutline } from "react-icons/io5";
+
 import moment from "moment";
-import { GameState } from "../context/gameContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { GameActions } from "../context/gameContext";
 
 const LevelHeader: FC = () => {
   const [time, setTime] = useState(0);
-  // const [state, dispatch] = useContext(GameContext);
+  const navigate = useNavigate();
   const { state, dispatch } = useContext(GameContext);
+
+  const handleExitGame = () => {
+    dispatch({ type: GameActions.EXIT_GAME });
+    dispatch({ type: GameActions.TOGGLE_MUSIC });
+    navigate("/");
+  };
+
   const handlePauseGame = () => {
     console.log("pause game");
   };
@@ -23,7 +33,7 @@ const LevelHeader: FC = () => {
   };
 
   const handleMusic = () => {
-    console.log("music");
+    dispatch({ type: GameActions.TOGGLE_MUSIC });
   };
 
   useEffect(() => {
@@ -62,21 +72,24 @@ const LevelHeader: FC = () => {
             Score:{"  "} {state.score} {"  "}{" "}
           </span>
           <div className="flex items-center gap-5">
-            <button className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm">
+            {/* <button className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm text-2xl">
               <MdMotionPhotosPause />
             </button>
-            <button className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm">
+            <button className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm text-2xl">
               <CiStop1 />
-            </button>
-            <button className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm">
-              <FaMusic />
-            </button>
-            <Link
-              to="/"
-              className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm text-sm"
+            </button> */}
+            <button
+              onClick={handleMusic}
+              className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm text-2xl"
             >
-              Exit
-            </Link>
+              {state.isMusicOn ? <TbMusic /> : <TbMusicOff />}
+            </button>
+            <button
+              onClick={handleExitGame}
+              className="p-3 hover:bg-teal-200/80 aspect-square rounded-full shadow-sm text-2xl"
+            >
+              <IoExitOutline />
+            </button>
           </div>
         </div>
       </div>
