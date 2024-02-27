@@ -10,15 +10,19 @@ import Level from "../interfaces/Level.interface";
 import { GameActions } from "../context/gameContext";
 import { WrongAnswerModal } from "../components/common/WrongAnswer.modal";
 import { CorrectAnswerModal } from "../components/common/CorrectAnswer.modal";
+import React from "react";
 
 const LevelWrapper = () => {
   const { level } = useParams<{ level: string }>();
   const navigate = useNavigate();
   const { dispatch } = useContext(GameContext);
+  const imgRef = React.createRef<HTMLImageElement>();
   const [positions, setPositions] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
+  const [x, setX] = useState(0);
+  const [y, setY] = useState(0);
 
   const levelData: Level | undefined = levels.find(
     (_level) => _level.level === parseInt(level as string, 10)
@@ -41,8 +45,13 @@ const LevelWrapper = () => {
     }
   }, [level]);
 
-  const handleAttachEventListener = (e: MouseEvent) => {
-    console.log(e);
+  const handleAttachEventListener = (e: any) => {
+    console.log(imgRef.current?.getBoundingClientRect());
+    // console.log(e.target.getboundingClientRect());
+    const { width, height } = e.target.getBoundingClientRect();
+    const { offsetX, offsetY } = e.nativeEvent;
+    setX(Math.round((((offsetX / width) * 100 - 10) / 80) * 100));
+    setY(Math.round((((offsetY / height) * 100 - 5) / 90) * 53.3));
     setPositions({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
 
     // console.log(e.clientX, e.clientY)
@@ -62,7 +71,11 @@ const LevelWrapper = () => {
   const handleClicked = (e: any, index: number) => {
     console.log(e);
     console.log(index);
-  }
+  };
+
+  const handleNextItem = () => {
+    dispatch({ type: GameActions.SET_NEXT_ITEM });
+  };
 
   // TODO: this should come from the server
   const levelBackgroundImage = levelData.backgroundImage.src;
@@ -83,7 +96,7 @@ const LevelWrapper = () => {
 
   return (
     <div
-      className="relative bg-cover bg-no-repeat bg-top w-dvw h-dvh m-0 p-0 box-border "
+      className="relative bg-contain bg-no-repeat bg-top w-dvw h-dvh m-0 p-0 box-border "
       // style={{
       //   backgroundImage: `url(${levelBackgroundImage})`,
       // }}
@@ -95,24 +108,28 @@ const LevelWrapper = () => {
         className="object-cover absolute top-0 left-0 w-full h-full z-0"
         onClick={(e: any) => handleAttachEventListener(e)}
         useMap="#image-map"
+        ref={imgRef}
       />
-      <map name="image-map">
+      {/* <map name="image-map">
         {corArr.map((cor, index) => (
           <area
             key={index}
             alt=""
             title=""
-            className="bg-red-500 p-10 z-10"
+            className="bg-red-500 p-10 z-10 top-10"
             onClick={(e: any) =>  handleClicked(e, index)}
             coords={cor.join(",")}
             shape="rect"
           />
         ))}
-      </map>
+      </map> */}
 
       <div className="absolute top-20 right-5 p-4 bg-white">
-        <p>X: {positions.x}</p>
-        <p>Y: {positions.y}</p>
+        <p>X : {x}</p>
+        <p>Y: {y}</p>
+        <button className="bg-blue-500 mt-2" onClick={handleNextItem}>
+          Next
+        </button>
       </div>
 
       <LevelHeader />

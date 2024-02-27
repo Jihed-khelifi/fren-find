@@ -16,8 +16,11 @@ export const LevelQuestions: FC<LevelQuestionsProps> = ({ questions }) => {
   }, [questionIndex, questions]);
 
   return (
-    <div className="bg-white/70 w-dvw px-10 py-5  absolute bottom-0">
-      <div className="flex justify-between items-center">
+    <div className="group bg-white hover:bg-white/70 w-[50px] aspect-square rounded-full hover:rounded-none bottom-2 animate-bounce  right-2 h-[50px] hover:w-dvw hover:px-10 hover:py-5 absolute hover:bottom-0 hover:right-0 hover:h-[80px] hover:animate-none">
+      <span className="text-center text-2xl  group-hover:hidden font-extrabold absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        ?
+      </span>
+      <div className="justify-between items-center hidden group-hover:flex">
         <h2 className="text-2xl font-extrabold">
           {questionIndex} - {question?.text}
         </h2>
