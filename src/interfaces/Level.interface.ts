@@ -6,5 +6,6 @@ export default interface Level {
     backgroundImage: {
         src: string;
         alt: string;
-    }
+    };
+    duration: number
 }

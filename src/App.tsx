@@ -11,26 +11,21 @@ import LevelThree from "./pages/LevelThree";
 import LevelWrapper from "./Layouts/LevelWrapper";
 import LoadingAssets from "./components/LoadingAssets";
 import { NotFound } from "./components/NotFound";
-import BachgroundSound from "./assets/sounds/backgroundSound.mp3";
+import { SoundActions, SoundContext } from "./context/soundContext";
+import { GameFinished } from "./pages/GameFinished";
 
 function App() {
   const { state, dispatch } = useContext(GameContext);
-
-  useEffect(() => {
-    const audio = new Audio(BachgroundSound);
-    audio.loop = true;
-
-    if (state.isMusicOn === true) {
-      audio.play();
-    }
-
-    return () => {
-      audio.pause();
-    };
-  }, []);
+  const soundContext = useContext(SoundContext);
+  const location = window.location;
 
   useEffect(() => {
     dispatch({ type: GameActions.INIT_GAME });
+    if (location.pathname.includes("level")) {
+      soundContext?.dispatch({ type: SoundActions.MUSIC_ON });
+    } else {
+      soundContext?.dispatch({ type: SoundActions.MUSIC_OFF });
+    }
   }, []);
 
   return (
@@ -43,6 +38,7 @@ function App() {
           <Route path="" element={<LayoutOutlet />}>
             <Route path="/" index element={<HomePage />} />
             <Route path="leaderboard" element={<LeaderBoard />} />
+            <Route path="game-finished" element={<GameFinished />} />
             <Route path="level/:level" element={<LevelWrapper />}>
               <Route path="level/1" element={<LevelOne />} />
               <Route path="level/2" element={<LevelTwo />} />

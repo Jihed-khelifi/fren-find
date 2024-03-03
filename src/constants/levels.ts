@@ -19,7 +19,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: LevelOneBackgroundImage,
             alt: "Level One Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 2,
@@ -27,7 +28,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: levelTwoBGImage,
             alt: "Level Two Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 3,
@@ -35,7 +37,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: levelThreeBGImage,
             alt: "Level three Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 4,
@@ -43,7 +46,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: levelFourBGImage,
             alt: "Level Four Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 5,
@@ -51,7 +55,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: levelFiveBGImage,
             alt: "Level five Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 6,
@@ -59,7 +64,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: leveSixBGImage,
             alt: "Level Six Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 7,
@@ -67,7 +73,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: levelSevenBGImage,
             alt: "Level Seven Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 8,
@@ -75,7 +82,8 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: levelEightBGImage,
             alt: "Level Eight Background Image"
-        }
+        },
+        duration: 600
     },
     {
         level: 9,
@@ -83,6 +91,7 @@ export const levels: Array<Level> = [
         backgroundImage: {
             src: leveNineBGImage,
             alt: "Level Nine Background Image"
-        }
+        },
+        duration: 600
     }
 ]

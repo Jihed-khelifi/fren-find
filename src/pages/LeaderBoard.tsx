@@ -1,17 +1,11 @@
-import { FC, useEffect, useState } from "react";
+import { FC, createRef } from "react";
 import CupIcon from "../assets/images/cup.png";
 import Badge from "../assets/images/badge.png";
-import { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
-import LevelHeader from "../components/LevelHeader";
 
-interface LeaderBoardProps {
-  // users: any;
-  onHide: Dispatch<SetStateAction<boolean>>;
-}
 
 const LeaderBoard: FC = () => {
-  const [users, setUsers] = useState([]);
+  const leaderBoardRef = createRef<HTMLDivElement>();
 
   // useEffect(() => {
   //   const getLeaderBoardInfos = async () => {
@@ -27,7 +21,10 @@ const LeaderBoard: FC = () => {
 
   return (
     <div className=' transition-all absolute grid place-items-center bg-[url("./assets/images/endscr.png")] z-50 max-h-7xl h-full top-0  w-full max-w-8xl '>
-      <div className="transition-all relative max-h-7xl bg-white/70 max-w-7xl w-full h-4/5  rounded-xl py-8 px-24">
+      <div
+        className="transition-all relative max-h-7xl bg-white/70 max-w-7xl w-full h-4/5  rounded-xl py-8 px-24"
+        ref={leaderBoardRef}
+      >
         <div>
           <p className="text-center text-4xl font-['Lato'] text font-[900] uppercase tracking-wide text-teal-700/90">
             leader board

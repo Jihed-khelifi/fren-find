@@ -1,23 +1,53 @@
-class SoundService {
+import Sound from "../interfaces/Sound.interface";
 
-    private sound: HTMLAudioElement;
-    private soundUrl: string;
+export default class SoundService {
 
-    constructor(soundUrl: string) {
-        this.soundUrl = soundUrl;
-        this.sound = new Audio(this.soundUrl);
+    private sound: Sound;
+    private audio: HTMLAudioElement = new Audio();
+    private isPlaying: boolean = false;
+
+    constructor(sound?: Sound) {
+        this.sound = sound || {
+            isPlaying: false,
+            src: "",
+            ended: false,
+            paused: false,
+            loop: false,
+            volume: 1
+        };
     }
-    
+
+    public setSound(sound: Sound) {
+        this.sound = sound;
+    }
+
     public playSound() {
-        this.sound.play();
+
+        if (this.isPlaying && !this.sound.loop) {
+            this.audio.pause();
+            this.audio.currentTime = 0;
+            this.isPlaying = false;
+        }
+
+        this.audio.src = this.sound.src;
+        this.audio.loop = this.sound.loop;
+        this.audio.volume = this.sound.volume;
+        this.audio.play();
+        this.isPlaying = true;
+        this.sound.isPlaying = true;
     }
 
     public pauseSound() {
-        this.sound.pause();
+        this.audio.pause();
+        this.isPlaying = false;
+        this.sound.paused = true;
     }
 
     public stopSound() {
-        this.sound.pause();
-        this.sound.currentTime = 0;
+        this.audio.pause();
+        this.audio.currentTime = 0;
+        this.isPlaying = false;
+        this.sound.isPlaying = false;
     }
+
 }

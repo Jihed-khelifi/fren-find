@@ -109,6 +109,7 @@ export type GameState = {
   isGameInitialized?: boolean;
   isLeaderboardVisible: boolean;
   level: number;
+  levelDuration:600
   score: number;
   timeplayed: number;
   isGamePaused: boolean;
@@ -126,6 +127,7 @@ const initialState: GameState = {
   isGameInitialized: false,
   isLeaderboardVisible: false,
   level: 1,
+  levelDuration: 600,
   score: 0,
   timeplayed: 0,
   isGamePaused: false,
@@ -189,6 +191,16 @@ export const GameProvider = ({ children }: { children: ReactNode }) => {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   useEffect(() => {
+    const audio = new Audio(BachgroundSound);
+    audio.loop = true;
+
+    if (state.isMusicOn === true) {
+      audio.play();
+    }
+
+    return () => {
+      audio.pause();
+    };
   }, [state, dispatch]);
 
   const value: GameContextType = useMemo(() => {

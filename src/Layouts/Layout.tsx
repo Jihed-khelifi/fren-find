@@ -9,7 +9,7 @@ const LayoutOutlet: FC = () => {
   const location = useLocation();
 
   useEffect(() => {
-    if (location.pathname === "/") {
+    if (!location.pathname.includes("level")) {
       setSetBgImage(true);
     } else {
       setSetBgImage(false);
@@ -21,7 +21,7 @@ const LayoutOutlet: FC = () => {
     <div
       className={clsx(
         "relative bg-cover bg-no-repeat bg-top w-dvw h-dvh",
-        setBgImage ? "bg-[url(./assets/images/endscr.png)]" : ""
+        setBgImage ? "bg-[url(./assets/images/homeImage.jpeg)]" : ""
       )}
     >
       <Outlet />

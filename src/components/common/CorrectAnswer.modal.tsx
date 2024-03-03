@@ -1,47 +1,85 @@
 import { GameContext } from "../../context/gameContext";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import Spaceship from "../../assets/images/spaceship.png";
 import Cloud from "../../assets/images/cloudpop.png";
 import FacePic from "../../assets/images/item26s.png";
-import clsx from "clsx";
 import anime from "animejs";
+import { createRef } from "react";
+import { SoundContext, SoundActions } from "../../context/soundContext";
+import { GameActions } from "../../context/gameContext";
 
 export const CorrectAnswerModal = () => {
-  const { state } = useContext(GameContext);
+  const { state, dispatch } = useContext(GameContext);
+  const soundContext = useContext(SoundContext);
+  const correctAnswerRef = createRef<HTMLDivElement>();
+
+  useEffect(() => {
+    if (state.isCorrect) {
+      anime({
+        targets: correctAnswerRef.current,
+        translateY: ["-100%", "0%"],
+        scale: [0, 1],
+        duration: 400,
+        easing: "linear",
+      });
+
+      soundContext.dispatch({ type: SoundActions.PLAY_CORRECT_SOUND });
+
+      setTimeout(() => {
+        const exitAnimation = anime({
+          targets: correctAnswerRef.current,
+          translateY: ["0%", "100%"],
+          scale: [1, 0],
+          duration: 400,
+          easing: "linear",
+        });
+
+        exitAnimation.finished.then(() => {
+          dispatch({ type: GameActions.TOGGLE_CORRECT });
+        });
+      }, 2000);
+    }
+  }, [state.isCorrect]);
 
   if (!state.isCorrect) return null;
-
-  anime({
-    targets: "#slide-up",
-    translateY: -500,
-  });
-
   return (
-    <div
-      className={clsx(
-        "fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  max-w-3xl mx-auto z-50 flex justify-center items-center",
-        { hidden: !state.isCorrect }
-      )}
-    >
-      <div className="bg-blue-200/90 px-20 py-10 rounded-2xl ">
-        <div className="flex flex-col gap-5 items-center justify-center relative">
-          <img src={Spaceship} alt="" />
-          <div
-            className="bg-white p-5 w-fit rounded-full flex items-center justify-center"
-          >
-            <img src={FacePic} alt="" className="object-contain rounded-full" />
+    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-full mx-auto h-full z-50 flex justify-center items-center">
+      <div
+        className="bg-blue-200/90 lg:px-20 lg:py-10 pb-4  px-10 rounded-2xl mt-10 relative"
+        ref={correctAnswerRef}
+      >
+        <div className="flex flex-col lg:gap-5 gap-2 items-center justify-center relative">
+          <div className="relative flex-1 lg:h-52 lg:w-52 h-28 w-28  z-50 grid place-items-center ">
+            <div className="absolute " id="slide-up ">
+              <div className="relative animate-bounce h-fit w-full">
+                <img
+                  src={Cloud}
+                  alt=""
+                  className=" object-contain aspect-auto "
+                />
+                <span className="absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 lg:text-3xl text-base text-green-600 font-extrabold select-none">
+                  +5000
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="p-4 bg-white w-full rounded-lg shadow-md text-center border-4 border-slate-600">
-            <span className="text-xl">Name</span>
+          <div>
+            <img
+              src={Spaceship}
+              alt=""
+              className="object-contain lg:h-fit lg:w-fit h-20 w-28"
+            />
           </div>
-        <div className="absolute -bottom-1/2" id="slide-up">
-          <div className="relative">
-            <img src={Cloud} alt="" className="object-cover" />
-            <span className="absolute top-1/2 left-1/2  -translate-x-1/2 -translate-y-1/2 text-3xl text-green-600 font-extrabold select-none">
-              +5000
-            </span>
+          <div className="bg-white lg:p-5 p-2  rounded-full flex items-center justify-center flex-1 lg:h-fit lg:w-fit h-20 w-20">
+            <img
+              src={FacePic}
+              alt=""
+              className="object-cover rounded-full h-full"
+            />
           </div>
-        </div>
+          <div className="lg:p-4 bg-white w-full rounded-lg shadow-md text-center border-4 border-slate-600 flex-1">
+            <span className="lg:text-xl text-base">Name</span>
+          </div>
         </div>
       </div>
     </div>
